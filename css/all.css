@@ -1,0 +1,83 @@
+            /****** Rating Starts *****/
+            @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+   .rating { 
+                border: none;
+                float: left;
+            }
+
+            .rating > input { display: none; } 
+            .rating > label:before { 
+                margin: 5px;
+                font-size: 1.25em;
+                font-family: FontAwesome;
+                display: inline-block;
+                content: "\f005";
+            }
+
+            .rating > .half:before { 
+                content: "\f089";
+                position: absolute;
+            }
+
+            .rating > label { 
+                color: #ddd; 
+                float: right; 
+            }
+
+            .rating > input:checked ~ label, 
+            .rating:not(:checked) > label:hover,  
+            .rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+            .rating > input:checked + label:hover, 
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, 
+            .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }     
+			
+  			.home {
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+.modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-header, .modal-body {
+    padding: 40px 50px;
+}
+.dark
+{
+	background-color: #333;
+    color: #fff !important;
+    text-align: center;
+}
+.darkl
+{
+	background-color: #333;
+    color: #fff !important;
+}
+
+		body{background-image: url("../back.jpg");
+  background-repeat: repeat-y;}
+  footer{background-image: url("../back.jpg");
+  background-repeat: no-repeat;}
+
+.person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+}
+.person:hover {
+    border-color: #f1f1f1;
+}
