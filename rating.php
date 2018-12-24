@@ -7,11 +7,11 @@ include 'requirement.php';
  session_start();
 $ipaddress = $_SESSION['uid'];
 
-$servername = "localhost"; // Server details
-$username = "975465";
-$password = "welcome0909";
-$dbname = "975465";
-
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$servername = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$dbname = substr($url["path"], 1);
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
