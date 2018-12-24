@@ -95,13 +95,18 @@ function add_user($name,$users,$pass,$email)
 	$query = "SELECT `username` FROM `users` WHERE `username`='$users'";
 	$r1 = mysqli_query($c,$query);
 	$r2=mysqli_query($c,"SELECT `email` FROM `users` WHERE `email` = '$email'");
-	echo "<pre>Debug: $query</pre>\m";
+	echo "<pre>Debug: $query</pre>\n";
 	if ( false===$r1 ) {
-  printf("error: %s\n", mysqli_error($con));
+  printf("error: %s\n", mysqli_error($c));
 }
 	if(mysqli_num_rows($r1)==0 && mysqli_num_rows($r2)==0)
-	{mysqli_query($c,"insert into `users` (`name`,`username`,`password`,`email`) values ('$name','$users','$p','$email')");echo "<p>User Registered a mail with a new Password hasbeen sent to your Register Mail. Check Your <b>Spam </b>Folder too.</p>";
-	$from="donotreply@computerdummies.cf";
+	{
+	 $result = mysqli_query($c,"insert into `users` (`name`,`username`,`password`,`email`) values ('$name','$users','$p','$email')");echo "<p>User Registered a mail with a new Password hasbeen sent to your Register Mail. Check Your <b>Spam </b>Folder too.</p>";
+	echo "<pre>Debug: Create user:</pre>\n";
+	if ( false===$result ) {
+  printf("error: %s\n", mysqli_error($c));
+}
+		$from="donotreply@computerdummies.cf";
 	$subject="Password for your COMPUTER DUMMIES";
 	$message="Welcome, ".$name."\n Thank you for registering with us hope you love solving the Questions. Your new password is \"".$pass."\"(without Quotes) please change your password after you login";
 	echo $message;
