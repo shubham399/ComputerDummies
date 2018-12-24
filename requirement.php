@@ -1,6 +1,6 @@
 <?php
-// require("./sendgrid-php/sendgrid-php.php");
-require 'vendor/autoload.php';
+require("./sendgrid-php/sendgrid-php.php");
+// require 'vendor/autoload.php';
 
 
 function connect()
@@ -805,22 +805,22 @@ function num_users()
 }
 
 function sendMail($f,$t,$subject,$msg)
-{
-    try {
-	 $apiKey = getenv('SENDGRID_API_KEY');
-	$sendgrid = new SendGrid('SENDGRID_API_KEY');
-$email    = new SendGrid\Email();
-
-
-$email->addTo($to)
-      ->setFrom($f)
-      ->setSubject($subject)
-      ->setHtml($msg);
-$sendgrid->send($email);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    }
-    return null;
+{$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom($f, "user");
+$email->setSubject($subject);
+$email->addTo($t,"user");
+$email->addContent("text/plain", $msg);
+// $email->addContent(
+//     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+// );
+$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+try {
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
 }
 
 ?>
