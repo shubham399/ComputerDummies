@@ -8,10 +8,6 @@ $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
 	
-echo "SERVER:".$server;
-	echo "USERNAME:".$username;
-	echo "PASSWORD:".$password;
-	echo "DB:". $db;
 	$con=mysqli_connect($server, $username, $password, $db) or die("Failed to connect to MySQL: " . mysql_error());
 	return $con;
 }
@@ -96,8 +92,14 @@ function add_user($name,$users,$pass,$email)
 	$email=htmlspecialchars($email);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {echo "Invalid Email";exit(0);}
 	$c=connect();
-	$r1 = mysqli_query($c,"SELECT `username` FROM `users` WHERE `username`='$users'");
+	echo $c;
+	$query = "SELECT `username` FROM `users` WHERE `username`='$users'";
+	$r1 = mysqli_query($c,$query);
 	$r2=mysqli_query($c,"SELECT `email` FROM `users` WHERE `email` = '$email'");
+	echo "<pre>Debug: $query</pre>\m";
+	if ( false===$r1 ) {
+  printf("error: %s\n", mysqli_error($con));
+}
 	if(mysqli_num_rows($r1)==0 && mysqli_num_rows($r2)==0)
 	{mysqli_query($c,"insert into `users` (`name`,`username`,`password`,`email`) values ('$name','$users','$p','$email')");echo "<p>User Registered a mail with a new Password hasbeen sent to your Register Mail. Check Your <b>Spam </b>Folder too.</p>";
 	$from="donotreply@computerdummies.cf";
