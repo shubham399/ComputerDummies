@@ -1,7 +1,13 @@
 <?php
 function connect()
 {
-	$con=mysqli_connect('localhost',getenv('DATABASE_USERNAME'),getenv('DATABASE_PASSWORD'),getenv('DATABASE_NAME')) or die("Failed to connect to MySQL: " . mysql_error());
+	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+	$con=mysqli_connect($server, $username, $password, $db) or die("Failed to connect to MySQL: " . mysql_error());
 	return $con;
 }
 function get_qid($uid,$cid)
