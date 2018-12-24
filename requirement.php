@@ -8,7 +8,7 @@ $server = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
-	
+
 	$con=mysqli_connect($server, $username, $password, $db) or die("Failed to connect to MySQL: " . mysql_error());
 	return $con;
 }
@@ -81,7 +81,7 @@ $name=$qid.".jpg";
 $name2="temp.jpg";
 $target_file = $target_dir . basename($name);
 $target_file2 = $target_dir . basename($name2);
-rename($target_file2,$target_file);	
+rename($target_file2,$target_file);
 }
 echo "Question added";
 }
@@ -110,13 +110,13 @@ function add_user($name,$users,$pass,$email)
 		$from="donotreply@computerdummies.cf";
 	$subject="Password for your COMPUTER DUMMIES";
 	$message="Welcome, ".$name."\n Thank you for registering with us hope you love solving the Questions. Your new password is \"".$pass."\"(without Quotes) please change your password after you login";
-	echo $message;
-	 // 	mail($email,$subject,$message,"From: $from\n");
+	// echo $message;
+	sendMail($email,$subject,$message,"From: $from\n");
 	}
 else
 	echo "Username or email  Exist";
 	mysqli_close($c);
-	
+
 }
 function login($users,$pass)
 {
@@ -171,7 +171,7 @@ function get_qleader($qid)
 		$name=$row["name"];
 		$qscore=$row["qscore"];
 		$i++;
-		
+
 		echo "<tr><td>".$i."</td><td>".$name."</td><td>".$qscore."</td></tr>";
 	}
 	echo "</table>";
@@ -186,17 +186,17 @@ function get_leaderboard()
 	echo "<tr><th>RANK</th><th>NAME</th><th>SCORE</th></tr>";
 	while($i < 10 && ($row=mysqli_fetch_array($result,MYSQLI_ASSOC)))
 	{
-		
+
 		$name=$row["name"];
 		$score=$row["score"];
 		$i++;
 		echo "<tr><td>".$i."</tc><td>".$name."</tc><td>".$score."</td></tr>";
 	}
 	echo "</table>";
-	
+
 }
 function display_question($qid,$cid)
-{	
+{
 	$c=connect();
 	$result = mysqli_query($c,"SELECT `ques`,`A`,`B`,`C`,`D`,`dificulty`,`hasimage` FROM `question` where `qid`='$qid'");
 	$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -219,7 +219,7 @@ function display_question($qid,$cid)
 	if($hasimage)
 		echo "<div class=\"panel-default\"><div class=\"panel-body\"><img src=\"./images/".$qid.".jpg\" class=\"img-rounded\"  width=\"500\" height=\"400\"></div></div>";
 	echo "<form class=\"form-horizontal\" action=\"validate.php\" method=\"post\" id=\"questions\"name=\"ques\">";
-	echo "	
+	echo "
 	<b>Timer</b><input type=\"text\" name=\"time\" value=\"60\">
 	<table class=\"table table-bordered\" style= width:100%>
 	<tr>
@@ -238,7 +238,7 @@ function display_question($qid,$cid)
 
 var targetURL=\"./index.php\"
 //change the second to start counting down from
-var countdownfrom=60	
+var countdownfrom=60
 var currentsecond=document.ques.time.value=countdownfrom+1
 function countredirect(){
 if (currentsecond!=1){
@@ -256,7 +256,7 @@ setTimeout(\"countredirect()\",1000)
 countredirect()
 </script>";
 	//echo "</div>";
-	
+
 	}
 
 function generateRandomString($length) {
@@ -272,26 +272,26 @@ function forgot($email)
 {
 	$c=connect();
 	$result=mysqli_query($c,"SELECT `username` from `users` where `email`='$email'");
-	
+
 	if(mysqli_num_rows($result)==0)
 	{
 		echo "User Does not Exist";
 	}
-	else{	
+	else{
 	$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
 	$users=$row["username"];
 	$pass=generateRandomString(10);
 	$from="donotreply@computerdummies.cf";
 	$subject="New password for your COMPUTER DUMMIES";
 	$message="Your new password is ".$pass." please change your password after you login";
-	mail($email,$subject,$message,"From: $from\n");
+	sendMail($email,$subject,$message,"From: $from\n");
 	$users=htmlspecialchars($users);
 	$pass=encrypt($pass,$users);
 	mysqli_query($c,"UPDATE `users` set `password`='$pass' where `email`='$email'");
 	echo "An Email with a new password is sent to your email ";
 	}
 	mysqli_close($c);
-	
+
 }
 function passwordrest($uid,$op,$np)
 {
@@ -310,14 +310,14 @@ function passwordrest($uid,$op,$np)
 	{
 	mysqli_query($c,"UPDATE `users` set `password`='$np' where `uid`='$uid'");
 	echo "Password Changed Sucessfully!!";
-		
+
 	}
 	echo "PAssssss";
 	mysqli_close($c);
 }
 function encrypt($pass,$users)
 {
-	if (CRYPT_SHA256 == 1) 
+	if (CRYPT_SHA256 == 1)
 	{$salt='$5$rounds=5000'.md5($users);
  $pass=crypt(htmlspecialchars($pass),$salt);
 	}
@@ -360,7 +360,7 @@ function display_score_rank($uid)
 	{
 		$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
 		$comp=strcmp($row["uid"],$uid);
-		
+
 		if(!$comp)
 		{	$flag=0;
 	break;
@@ -369,8 +369,8 @@ function display_score_rank($uid)
 			$i++;
 	}
 	echo "<td>Your Rank: <b>".$i."</td></th></table>";
-	
-	
+
+
 }
 function addquestionform($uid)
 {
@@ -442,8 +442,8 @@ $i=0;
 function addcategoryform($uid)
 {
 	echo "<form class=\"form-horizontal\" action=\"addcat.php\" method=\"post\" id=\"questions\"name=\"ques\"><input type=\"hidden\" name=\"uid\" value=\"".$uid."\"><input type=\"text\" class=\"form-control\" name=\"cat\" placeholder=\"CATEGORY\" ><input type=\"submit\"  class=\"btn btn-info\" value=\"Add Category\"></form>";
-	
-	
+
+
 }
 function deletequestion($uid)
 {
@@ -476,7 +476,7 @@ function diplaycat($uid)
 	echo "<table class=\"table table-bordered\" style= width:100%><tr>";
 	while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
-		
+
 		$cid=$row["cid"];
 		$cat=$row["category"];
 		$flag=0;
@@ -492,22 +492,22 @@ function diplaycat($uid)
 		$link="<a href=\"./start.php?cid=".$cid."\" class=\"btn btn-info btn-block \" role=\"button\">".$cat."</a>";
 		else
 		$link="<a href=\"./start.php?cid=".$cid."\" class=\"btn btn-primary btn-block disabled\" role=\"button\">".$cat."</a>";
-		
+
 		echo "<td>".$link."</td>";
 		$i++;
 		if($i%2==0)
 			echo "</tr><tr>";
-		
+
 	}
 	echo "</tr>";
 	echo "</table></div></div>";
 	}
 ?>
 <div class="alert alert-info">
-  <strong>Info!</strong>Please Provide your Valuable Suggestion to help Us create a better Platform 
+  <strong>Info!</strong>Please Provide your Valuable Suggestion to help Us create a better Platform
 </div>
 
-<?php	
+<?php
 }
 function modifyquestionform($uid,$qid)
 {
@@ -563,7 +563,7 @@ function disprightpercentage($qid)
 		else
 			$per=round(($cans*100)/$tans,2);
 		echo "<p>People getting this answer right : <b>".$per." %</b></p>";
-		mysqli_close($c);	
+		mysqli_close($c);
 }
 function getadminnotification()
 {
@@ -575,7 +575,7 @@ function getadminnotification()
 	if($count==0)
 		echo "No new notification yet";
 	else{
-		
+
 		echo "<table>";$i=0;
 		while(($row=mysqli_fetch_array($result,MYSQLI_ASSOC))&& $i<5)
 		{
@@ -595,7 +595,7 @@ function updatenotification($uid,$message)
 	$not=$user." 	 ".$message;
 	mysqli_query($c,"INSERT into `admin_notification`(`notification`) values ('$not') ");
 	mysqli_close($c);
-	
+
 }
 function viewusers($page)
 {
@@ -610,7 +610,7 @@ $serial++;
 $i++;}
 $i=0;
 	echo "<div class=\"panel panel-body\"><table class=\"table table-bordered\" style= width:100%><tr><th>Serial No.</th><th>ID</th><th>Name</th><th>No of Question attempted</th><th>Score</th><th>RANK</th><th>Login Count</th><th>Grant/Revoke Privilege</th><th>BLOCK/UNBLOCK USER</th><th>REGISTRATION TIME</th></tr>";
-	
+
 	while(($row=mysqli_fetch_array($r,MYSQLI_ASSOC))&&$i<10)
 	{
 		$serial++;
@@ -620,10 +620,10 @@ $i=0;
 		$flag=1;
 		while(($rankf=mysqli_fetch_array($rankquery,MYSQLI_ASSOC))!=NULL)
 		{
-			
+
 			$comp=strcmp($rankf["uid"],$uid);
 			if(!$comp)
-			{	
+			{
 				$flag=0;
 				break;
 			}
@@ -642,7 +642,7 @@ $i=0;
 		if($account)
 		$alink="<a href=\"userrevoke.php?uid=".$uid."\">BLOCK USER</a>";
 		else
-		$alink="<a href=\"retrive.php?uid=".$uid."\">UNBLOCK USER</a>";	
+		$alink="<a href=\"retrive.php?uid=".$uid."\">UNBLOCK USER</a>";
 		$link="<a href=\"grant.php?uid=".$uid."\">Grant Admin Privilege</a>";
 		$type=$row["type"];
 		$comp=strcmp($type,"admin");
@@ -653,20 +653,20 @@ $time="Not Avialable";
 		if(!$comp && $uid>1)
 		{
 			$link="<a href=\"revoke.php?uid=".$uid."\">Revoke Admin Privilege</a>";
-		
+
 		echo "<tr><td>".$serial."</td><td>".$uid."</td><td>".$name."</td><td>".$nq."</td><td>".$score."</td><td>".$rank."</td><td>".$lc."</td><td>".$link."</td><td>".$alink."</td><td>".$time."</td></tr>";
-		}else 
+		}else
 		{
 			if($uid>1)
 			echo "<tr><td>".$serial."</td><td>".$uid."</td><td>".$name."</td><td>".$nq."</td><td>".$score."</td><td>".$rank."</td><td>".$lc."</td><td>".$link."</td><td>".$alink."</td><td>".$time."</td></tr>";
 			else
-			echo "<tr><td>".$serial."</td><td>".$uid."</td><td>".$name."</td><td>".$nq."</td><td>".$score."</td><td>".$rank."</td><td>".$lc."</td><td>Can't Change Admin Privilege Here</td><td>Can't BLOCK</td><td>".$time."</td></tr>";	
+			echo "<tr><td>".$serial."</td><td>".$uid."</td><td>".$name."</td><td>".$nq."</td><td>".$score."</td><td>".$rank."</td><td>".$lc."</td><td>Can't Change Admin Privilege Here</td><td>Can't BLOCK</td><td>".$time."</td></tr>";
 		}
 	}
-	
+
 	echo "</table></div>";
 	mysqli_close($c);
-	
+
 }
 function displayplayernotification()
 {
@@ -678,7 +678,7 @@ function displayplayernotification()
 	if($count==0)
 		echo "No Notification yet";
 	else{
-	
+
 	while(($row=mysqli_fetch_array($result,MYSQLI_ASSOC))&& $i<10)
 		{
 			$i++;
@@ -687,7 +687,7 @@ function displayplayernotification()
 		}
 	}
 	echo "</table></div></div>";
-	
+
 }
 function notificationupdate($uid,$message)
 {
@@ -698,7 +698,7 @@ $c=connect();
 	$not=$user." 	 ".$message;
 	mysqli_query($c,"INSERT into `pnotification`(`notification`) values ('$not') ");
 	mysqli_close($c);
-	
+
 }
 function addnotification($message)
 {
@@ -747,7 +747,7 @@ function viewcategory()
 	$sumnq=0;
 	$sumnqa=0;
 	while(($row=mysqli_fetch_array($result,MYSQLI_ASSOC)))
-	{	
+	{
 	$cid=$row["cid"];
 	$name=$row["category"];
 	$questionatempted=mysqli_query($c,"select `uid` from `user_question` where `qid` in (select `qid` from `question` where `cid`='$cid')");
@@ -813,7 +813,7 @@ function sendMail($f,$t,$subject,$msg)
         $mail = new Mail($from, $to, $subject, $content);
         $to = new To(null, $t);
         $mail->addPersonalization($to);
-        $response = $sg->client->mail()->send()->post($mail); 
+        $response = $sg->client->mail()->send()->post($mail);
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
