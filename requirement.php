@@ -97,7 +97,7 @@ function add_user($name,$users,$pass,$email)
 	$from="donotreply@computerdummies.cf";
 	$subject="Password for your COMPUTER DUMMIES";
 	$message="Welcome, ".$name."\n Thank you for registering with us hope you love solving the Questions. Your new password is \"".$pass."\"(without Quotes) please change your password after you login";
-	echo $message
+	echo $message;
 	 // 	mail($email,$subject,$message,"From: $from\n");
 	}
 else
