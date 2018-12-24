@@ -1,4 +1,5 @@
 <?php
+
 function connect()
 {
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
@@ -6,7 +7,12 @@ $server = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
-$con = new mysqli($server, $username, $password, $db);
+	
+echo "SERVER:".$server;
+	echo "USERNAME:".$username;
+	echo "PASSWORD:".$password;
+	echo "DB:". $db;
+	$con=mysqli_connect($server, $username, $password, $db) or die("Failed to connect to MySQL: " . mysql_error());
 	return $con;
 }
 function get_qid($uid,$cid)
