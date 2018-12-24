@@ -805,14 +805,14 @@ function num_users()
 }
 
 function sendMail($f,$t,$subject,$msg)
-{$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom($f, "user");
+{
+	$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom($f, "User");
 $email->setSubject($subject);
-$email->addTo($t,"user");
-$email->addContent("text/plain", $msg);
-// $email->addContent(
-//     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-// );
+$email->addTo($t, "User");
+$email->addContent(
+    "text/html", $msg
+);
 $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
 try {
     $response = $sendgrid->send($email);
@@ -821,6 +821,7 @@ try {
     print $response->body() . "\n";
 } catch (Exception $e) {
     echo 'Caught exception: '. $e->getMessage() ."\n";
+}
 }
 
 ?>
