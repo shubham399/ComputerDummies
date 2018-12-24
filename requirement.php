@@ -1,4 +1,5 @@
 <?php
+require("path/to/sendgrid-php/sendgrid-php.php");
 
 function connect()
 {
@@ -800,4 +801,23 @@ function num_users()
 	$n=mysqli_num_rows($r);
 	return $n;
 }
+
+function sendMail($f,$t,$subject,$msg)
+{
+    try {
+	 $apiKey = getenv('SENDGRID_API_KEY');
+    	$sg = new \SendGrid($apiKey);
+        $from = new From(null, $f);
+        $to = new To(null, $t);
+        $content = new Content("text/plain", $msg);
+        $mail = new Mail($from, $to, $subject, $content);
+        $to = new To(null, $t);
+        $mail->addPersonalization($to);
+        $response = $sg->client->mail()->send()->post($mail); 
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+    return null;
+}
+
 ?>
