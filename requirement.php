@@ -806,8 +806,9 @@ function sendMail($f,$t,$subject,$msg)
 {
     try {
 	 $apiKey = getenv('SENDGRID_API_KEY');
-    	$sg = new SendGrid($apiKey);
 	$sendgrid = new SendGrid($apiKey);
+	$email    = new SendGrid\Email();
+
 
 $email->addTo($to)
       ->setFrom($f)
