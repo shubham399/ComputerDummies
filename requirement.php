@@ -1,5 +1,5 @@
 <?php
-require("path/to/sendgrid-php/sendgrid-php.php");
+require("./sendgrid-php/sendgrid-php.php");
 
 function connect()
 {
