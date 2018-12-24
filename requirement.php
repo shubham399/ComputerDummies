@@ -806,14 +806,14 @@ function sendMail($f,$t,$subject,$msg)
 {
     try {
 	 $apiKey = getenv('SENDGRID_API_KEY');
-    	$sg = new \SendGrid($apiKey);
-        $from = new From(null, $f);
-        $to = new To(null, $t);
-        $content = new Content("text/plain", $msg);
-        $mail = new Mail($from, $to, $subject, $content);
-        $to = new To(null, $t);
-        $mail->addPersonalization($to);
-        $response = $sg->client->mail()->send()->post($mail);
+    	$sg = new SendGrid($apiKey);
+	$sendgrid = new SendGrid($apiKey);
+
+$email->addTo($to)
+      ->setFrom($f)
+      ->setSubject($subject)
+      ->setHtml($msg);
+$sendgrid->send($email);
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
