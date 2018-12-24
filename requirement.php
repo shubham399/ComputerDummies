@@ -1,5 +1,7 @@
 <?php
-require("./sendgrid-php/sendgrid-php.php");
+// require("./sendgrid-php/sendgrid-php.php");
+require 'vendor/autoload.php';
+
 
 function connect()
 {
@@ -806,8 +808,8 @@ function sendMail($f,$t,$subject,$msg)
 {
     try {
 	 $apiKey = getenv('SENDGRID_API_KEY');
-	$sendgrid = new SendGrid($apiKey);
-	$email    = new SendGridEmail();
+	$sendgrid = new SendGrid('SENDGRID_API_KEY');
+$email    = new SendGrid\Email();
 
 
 $email->addTo($to)
