@@ -92,7 +92,6 @@ function add_user($name,$users,$pass,$email)
 	$email=htmlspecialchars($email);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {echo "Invalid Email";exit(0);}
 	$c=connect();
-	echo $c;
 	$query = "SELECT `username` FROM `users` WHERE `username`='$users'";
 	$r1 = mysqli_query($c,$query);
 	$r2=mysqli_query($c,"SELECT `email` FROM `users` WHERE `email` = '$email'");
