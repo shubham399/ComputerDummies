@@ -807,9 +807,9 @@ function num_users()
 function sendMail($f,$t,$subject,$msg)
 {
 	$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom($f,"");
+$email->setFrom($f,"Computer Dummies");
 $email->setSubject($subject);
-$email->addTo($t, "");
+$email->addTo($t, "User");
 $email->addContent(
     "text/html", $msg
 );
