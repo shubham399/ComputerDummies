@@ -1,3 +1,13 @@
-"require": {
+{
+    "name": "shubham399/computer-dummies",
+    "authors": [
+        {
+            "name": "Shubham Kumar",
+            "email": "computerdummies@shubhamkumar.cf"
+        }
+    ],
+    "require": {
   "ext-mbstring": "*"
+}
+
 }
