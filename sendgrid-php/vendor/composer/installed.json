@@ -1,17 +1,17 @@
 [
     {
         "name": "sendgrid/php-http-client",
-        "version": "3.5.1",
-        "version_normalized": "3.5.1.0",
+        "version": "3.9.6",
+        "version_normalized": "3.9.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sendgrid/php-http-client.git",
-            "reference": "3c4c35eafd364ebcfdbb0a37f655417beed8ee0f"
+            "reference": "e9a04d949ee2d19938ab83dc100933a3b41a8ec7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/3c4c35eafd364ebcfdbb0a37f655417beed8ee0f",
-            "reference": "3c4c35eafd364ebcfdbb0a37f655417beed8ee0f",
+            "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/e9a04d949ee2d19938ab83dc100933a3b41a8ec7",
+            "reference": "e9a04d949ee2d19938ab83dc100933a3b41a8ec7",
             "shasum": ""
         },
         "require": {
@@ -21,7 +21,7 @@
             "phpunit/phpunit": "~4.4",
             "squizlabs/php_codesniffer": "~2.0"
         },
-        "time": "2016-11-17 22:45:31",
+        "time": "2018-04-10T18:06:08+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

@@ -1,6 +1,8 @@
 <?php
-// If you are using Composer
-require 'vendor/autoload.php';
+require 'vendor/autoload.php'; // If you're using Composer (recommended)
+// comment out the above line if not using Composer
+// require("./sendgrid-php.php"); 
+// If not using Composer, uncomment the above line
 
 
 $apiKey = getenv('SENDGRID_API_KEY');
@@ -15,20 +17,30 @@ $request_body = json_decode('{
   "is_default": true, 
   "name": "Product Suggestions"
 }');
-$response = $sg->client->asm()->groups()->post($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->post($request_body);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve information about multiple suppression groups #
 // GET /asm/groups #
 
 $query_params = json_decode('{"id": 1}');
-$response = $sg->client->asm()->groups()->get(null, $query_params);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->get(null, $query_params);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Update a suppression group. #
@@ -40,30 +52,45 @@ $request_body = json_decode('{
   "name": "Item Suggestions"
 }');
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->patch($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->patch($request_body);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Get information on a single suppression group. #
 // GET /asm/groups/{group_id} #
 
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->get();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Delete a suppression group. #
 // DELETE /asm/groups/{group_id} #
 
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->delete();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->delete();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Add suppressions to a suppression group #
@@ -76,20 +103,30 @@ $request_body = json_decode('{
   ]
 }');
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($request_body);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve all suppressions for a suppression group #
 // GET /asm/groups/{group_id}/suppressions #
 
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->suppressions()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->get();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Search for suppressions within a group #
@@ -103,10 +140,15 @@ $request_body = json_decode('{
   ]
 }');
 $group_id = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->suppressions()->search()->post($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->search()->post($request_body);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Delete a suppression from a suppression group #
@@ -114,19 +156,29 @@ echo $response->headers();
 
 $group_id = "test_url_param";
 $email = "test_url_param";
-$response = $sg->client->asm()->groups()->_($group_id)->suppressions()->_($email)->delete();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->_($email)->delete();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve all suppressions #
 // GET /asm/suppressions #
 
-$response = $sg->client->asm()->suppressions()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->suppressions()->get();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Add recipient addresses to the global suppression group. #
@@ -138,38 +190,57 @@ $request_body = json_decode('{
     "test2@example.com"
   ]
 }');
-$response = $sg->client->asm()->suppressions()->global()->post($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->suppressions()->global()->post($request_body);    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve a Global Suppression #
 // GET /asm/suppressions/global/{email} #
 
 $email = "test_url_param";
-$response = $sg->client->asm()->suppressions()->global()->_($email)->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->suppressions()->global()->_($email)->get();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Delete a Global Suppression #
 // DELETE /asm/suppressions/global/{email} #
 
 $email = "test_url_param";
-$response = $sg->client->asm()->suppressions()->global()->_($email)->delete();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->asm()->suppressions()->global()->_($email)->delete();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve all suppression groups for an email address #
 // GET /asm/suppressions/{email} #
 
 $email = "test_url_param";
-$response = $sg->client->asm()->suppressions()->_($email)->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
 
+try {
+    $response = $sg->client->asm()->suppressions()->_($email)->get();    
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}

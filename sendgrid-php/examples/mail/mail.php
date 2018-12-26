@@ -1,6 +1,8 @@
 <?php
-// If you are using Composer
-require 'vendor/autoload.php';
+require 'vendor/autoload.php'; // If you're using Composer (recommended)
+// comment out the above line if not using Composer
+// require("./sendgrid-php.php"); 
+// If not using Composer, uncomment the above line
 
 
 $apiKey = getenv('SENDGRID_API_KEY');
@@ -10,20 +12,29 @@ $sg = new \SendGrid($apiKey);
 // Create a batch ID #
 // POST /mail/batch #
 
-$response = $sg->client->mail()->batch()->post();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+try {
+    $response = $sg->client->mail()->batch()->post();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Validate batch ID #
 // GET /mail/batch/{batch_id} #
 
 $batch_id = "test_url_param";
-$response = $sg->client->mail()->batch()->_($batch_id)->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->mail()->batch()->_($batch_id)->get();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // v3 Mail Send #
@@ -57,7 +68,7 @@ $request_body = json_decode('{
   "content": [
     {
       "type": "text/html", 
-      "value": "<html><p>Hello, world!</p><img src=[CID GOES HERE]></img></html>"
+      "value": "<html><p>Hello, world!</p><img src=[CID GOES HERE] /></html>"
     }
   ], 
   "custom_args": {
@@ -164,12 +175,16 @@ $request_body = json_decode('{
       "enable": true, 
       "html": "If you would like to unsubscribe and stop receiving these emails <% clickhere %>.", 
       "substitution_tag": "<%click here%>", 
-      "text": "If you would like to unsubscribe and stop receiveing these emails <% click here %>."
+      "text": "If you would like to unsubscribe and stop receiving these emails <% click here %>."
     }
   }
 }');
-$response = $sg->client->mail()->send()->post($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
 
+try {
+    $response = $sg->client->mail()->send()->post($request_body);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}

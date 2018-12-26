@@ -1,7 +1,8 @@
 <?php
-// If you are using Composer
-require 'vendor/autoload.php';
-
+require 'vendor/autoload.php'; // If you're using Composer (recommended)
+// comment out the above line if not using Composer
+// require("./sendgrid-php.php"); 
+// If not using Composer, uncomment the above line
 
 $apiKey = getenv('SENDGRID_API_KEY');
 $sg = new \SendGrid($apiKey);
@@ -11,10 +12,15 @@ $sg = new \SendGrid($apiKey);
 // GET /tracking_settings #
 
 $query_params = json_decode('{"limit": 1, "offset": 1}');
-$response = $sg->client->tracking_settings()->get(null, $query_params);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->tracking_settings()->get(null, $query_params);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Update Click Tracking Settings #
@@ -23,19 +29,28 @@ echo $response->headers();
 $request_body = json_decode('{
   "enabled": true
 }');
-$response = $sg->client->tracking_settings()->click()->patch($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->tracking_settings()->click()->patch($request_body);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve Click Track Settings #
 // GET /tracking_settings/click #
 
-$response = $sg->client->tracking_settings()->click()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+try {
+    $response = $sg->client->tracking_settings()->click()->get();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Update Google Analytics Settings #
@@ -49,19 +64,28 @@ $request_body = json_decode('{
   "utm_source": "sendgrid.com", 
   "utm_term": ""
 }');
-$response = $sg->client->tracking_settings()->google_analytics()->patch($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->tracking_settings()->google_analytics()->patch($request_body);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve Google Analytics Settings #
 // GET /tracking_settings/google_analytics #
 
-$response = $sg->client->tracking_settings()->google_analytics()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+try {
+    $response = $sg->client->tracking_settings()->google_analytics()->get();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Update Open Tracking Settings #
@@ -70,19 +94,28 @@ echo $response->headers();
 $request_body = json_decode('{
   "enabled": true
 }');
-$response = $sg->client->tracking_settings()->open()->patch($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->tracking_settings()->open()->patch($request_body);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Get Open Tracking Settings #
 // GET /tracking_settings/open #
 
-$response = $sg->client->tracking_settings()->open()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+try {
+    $response = $sg->client->tracking_settings()->open()->get();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Update Subscription Tracking Settings #
@@ -96,17 +129,25 @@ $request_body = json_decode('{
   "replace": "replacement tag", 
   "url": "url"
 }');
-$response = $sg->client->tracking_settings()->subscription()->patch($request_body);
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
+
+try {
+    $response = $sg->client->tracking_settings()->subscription()->patch($request_body);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 
 ////////////////////////////////////////////////////
 // Retrieve Subscription Tracking Settings #
 // GET /tracking_settings/subscription #
 
-$response = $sg->client->tracking_settings()->subscription()->get();
-echo $response->statusCode();
-echo $response->body();
-echo $response->headers();
-
+try {
+    $response = $sg->client->tracking_settings()->subscription()->get();
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}

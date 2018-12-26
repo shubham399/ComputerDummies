@@ -2,80 +2,91 @@
 namespace SendGrid;
 
 // If you are using Composer
-require __DIR__ . '<PATH_TO>/vendor/autoload.php';
+require __DIR__ . '/../../../vendor/autoload.php';
+// comment out the above line if not using Composer
+// require("./sendgrid-php.php"); 
+// If not using Composer, uncomment the above line
+
+use SendGrid\Mail\To;
+use SendGrid\Mail\From;
+use SendGrid\Mail\Content;
+use SendGrid\Mail\Mail;
 
 
 function helloEmail()
 {
-    $from = new Email(null, "test@example.com");
-    $subject = "Hello World from the SendGrid PHP Library";
-    $to = new Email(null, "test@example.com");
-    $content = new Content("text/plain", "some text here");
-    $mail = new Mail($from, $subject, $to, $content);
-    $to = new Email(null, "test2@example.com");
-    $mail->personalization[0]->addTo($to);
+    try {
+        $from = new From(null, "test@example.com");
+        $subject = "Hello World from the SendGrid PHP Library";
+        $to = new To(null, "test@example.com");
+        $content = new Content("text/plain", "some text here");
+        $mail = new Mail($from, $to, $subject, $content);
 
-    //echo json_encode($mail, JSON_PRETTY_PRINT), "\n";
-    return $mail;
+        $to = new To(null, "test2@example.com");
+        $mail->addPersonalization($to);
+
+        //echo json_encode($mail, JSON_PRETTY_PRINT), "\n";
+        return $mail;
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+
+    return null;
 }
 
 function kitchenSink()
 {
-    $mail = new Mail();
-
-    $email = new Email("DX", "test@example.com");
-    $mail->setFrom($email);
-
-    $mail->setSubject("Hello World from the SendGrid PHP Library");
-
-    $personalization = new Personalization();
-    $email = new Email("Example User", "test1@example.com");
-    $personalization->addTo($email);
-    $email = new Email("Example User", "test2@example.com");
-    $personalization->addTo($email);
-    $email = new Email("Example User", "test3@example.com");
-    $personalization->addCc($email);
-    $email = new Email("Example User", "test4@example.com");
-    $personalization->addCc($email);
-    $email = new Email("Example User", "test5@example.com");
-    $personalization->addBcc($email);
-    $email = new Email("Example User", "test6@example.com");
-    $personalization->addBcc($email);
-    $personalization->setSubject("Hello World from the SendGrid PHP Library");
-    $personalization->addHeader("X-Test", "test");
-    $personalization->addHeader("X-Mock", "true");
-    $personalization->addSubstitution("%name%", "Example User");
-    $personalization->addSubstitution("%city%", "Denver");
-    $personalization->addCustomArg("user_id", "343");
-    $personalization->addCustomArg("type", "marketing");
-    $personalization->setSendAt(1443636843);
-    $mail->addPersonalization($personalization);
-
-    $personalization2 = new Personalization();
-    $email = new Email("Example User", "test1@example.com");
-    $personalization2->addTo($email);
-    $email = new Email("Example User", "test2@example.com");
-    $personalization2->addTo($email);
-    $email = new Email("Example User", "test3@example.com");
-    $personalization2->addCc($email);
-    $email = new Email("Example User", "test4@example.com");
-    $personalization2->addCc($email);
-    $email = new Email("Example User", "test5@example.com");
-    $personalization2->addBcc($email);
-    $email = new Email("Example User", "test6@example.com");
-    $personalization2->addBcc($email);
-    $personalization2->setSubject("Hello World from the SendGrid PHP Library");
-    $personalization2->addHeader("X-Test", "test");
-    $personalization2->addHeader("X-Mock", "true");
-    $personalization2->addSubstitution("%name%", "Example User");
-    $personalization2->addSubstitution("%city%", "Denver");
-    $personalization2->addCustomArg("user_id", "343");
-    $personalization2->addCustomArg("type", "marketing");
-    $personalization2->setSendAt(1443636843);
-    $mail->addPersonalization($personalization2);
-
+    $from = new Email("DX", "test@example.com");
+    $subject = "Hello World from the SendGrid PHP Library";
+    $to = new Email("Example User", "test1@example.com");
     $content = new Content("text/plain", "some text here");
-    $mail->addContent($content);
+
+    $mail = new Mail($from, $subject, $to, $content);
+
+    $email2 = new Email("Example User", "test2@example.com");
+    $mail->personalization[0]->addTo($email2);
+    $email3 = new Email("Example User", "test3@example.com");
+    $mail->personalization[0]->addCc($email3);
+    $email4 = new Email("Example User", "test4@example.com");
+    $mail->personalization[0]->addCc($email4);
+    $email5 = new Email("Example User", "test5@example.com");
+    $mail->personalization[0]->addBcc($email5);
+    $email6 = new Email("Example User", "test6@example.com");
+    $mail->personalization[0]->addBcc($email6);
+    $mail->personalization[0]->setSubject("Hello World from the SendGrid PHP Library");
+    $mail->personalization[0]->addHeader("X-Test", "test");
+    $mail->personalization[0]->addHeader("X-Mock", "true");
+    $mail->personalization[0]->addSubstitution("%name%", "Example User");
+    $mail->personalization[0]->addSubstitution("%city%", "Denver");
+    $mail->personalization[0]->addSubstitution("%sec1%", "%section1%");
+    $mail->personalization[0]->addCustomArg("user_id", "343");
+    $mail->personalization[0]->addCustomArg("type", "marketing");
+    $mail->personalization[0]->setSendAt(1443636843);
+
+    $personalization1 = new Personalization();
+    $email7 = new Email("Example User", "test7@example.com");
+    $personalization1->addTo($email7);
+    $email8 = new Email("Example User", "test8@example.com");
+    $personalization1->addTo($email8);
+    $email9 = new Email("Example User", "test9@example.com");
+    $personalization1->addCc($email9);
+    $email10 = new Email("Example User", "test10@example.com");
+    $personalization1->addCc($email10);
+    $email11 = new Email("Example User", "test11@example.com");
+    $personalization1->addBcc($email11);
+    $email12 = new Email("Example User", "test12@example.com");
+    $personalization1->addBcc($email12);
+    $personalization1->setSubject("Hello World from the SendGrid PHP Library");
+    $personalization1->addHeader("X-Test", "test");
+    $personalization1->addHeader("X-Mock", "true");
+    $personalization1->addSubstitution("%name%", "Example User");
+    $personalization1->addSubstitution("%city%", "Denver");
+    $personalization1->addSubstitution("%sec2%", "%section2%");
+    $personalization1->addCustomArg("user_id", "343");
+    $personalization1->addCustomArg("type", "marketing");
+    $personalization1->setSendAt(1443636843);
+    $mail->addPersonalization($personalization1);
+
     $content = new Content("text/html", "<html><body>some text here</body></html>");
     $mail->addContent($content);
 
@@ -98,7 +109,7 @@ function kitchenSink()
     $mail->setTemplateId("439b6d66-4408-4ead-83de-5c83c2ee313a");
 
     # This must be a valid [batch ID](https://sendgrid.com/docs/API_Reference/SMTP_API/scheduling_parameters.html) to work
-    # $mail->setBatchID("sengrid_batch_id");
+    # $mail->setBatchID("sendgrid_batch_id");
 
     $mail->addSection("%section1%", "Substitution Text for Section 1");
     $mail->addSection("%section2%", "Substitution Text for Section 2");
@@ -169,7 +180,7 @@ function kitchenSink()
     $tracking_settings->setGanalytics($ganalytics);
     $mail->setTrackingSettings($tracking_settings);
 
-    $reply_to = new ReplyTo("test@example.com");
+    $reply_to = new ReplyTo("test@example.com", "Optional Name");
     $mail->setReplyTo($reply_to);
 
     //echo json_encode($mail, JSON_PRETTY_PRINT), "\n";
@@ -182,10 +193,15 @@ function sendHelloEmail()
     $sg = new \SendGrid($apiKey);
 
     $request_body = helloEmail();
-    $response = $sg->client->mail()->send()->post($request_body);
-    echo $response->statusCode();
-    echo $response->body();
-    echo $response->headers();
+    
+    try {
+        $response = $sg->client->mail()->send()->post($request_body);    
+        print $response->statusCode() . "\n";
+        print_r($response->headers());
+        print $response->body() . "\n";
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
 }
 
 function sendKitchenSink()
@@ -194,10 +210,15 @@ function sendKitchenSink()
     $sg = new \SendGrid($apiKey);
 
     $request_body = kitchenSink();
-    $response = $sg->client->mail()->send()->post($request_body);
-    echo $response->statusCode();
-    echo $response->body();
-    echo $response->headers();
+    
+    try {
+        $response = $sg->client->mail()->send()->post($request_body);    
+        print $response->statusCode() . "\n";
+        print_r($response->headers());
+        print $response->body() . "\n";
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
 }
 
 sendHelloEmail();  // this will actually send an email
