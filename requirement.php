@@ -113,7 +113,7 @@ function add_user($name,$users,$pass,$email)
 	$subject="Password for your COMPUTER DUMMIES";
 	$message="Welcome, ".$name."\n Thank you for registering with us hope you love solving the Questions. Your new password is \"".$pass."\"(without Quotes) please change your password after you login";
 	// echo $message;
-	sendMail($email,$subject,$message,"From: $from\n");
+	sendMail($email,$subject,$message,$from);
 	}
 else
 	echo "Username or email  Exist";
@@ -286,7 +286,7 @@ function forgot($email)
 	$from="donotreply@computerdummies.cf";
 	$subject="New password for your COMPUTER DUMMIES";
 	$message="Your new password is ".$pass." please change your password after you login";
-	sendMail($email,$subject,$message,"From: $from\n");
+	sendMail($email,$subject,$message,$from);
 	$users=htmlspecialchars($users);
 	$pass=encrypt($pass,$users);
 	mysqli_query($c,"UPDATE `users` set `password`='$pass' where `email`='$email'");
@@ -803,8 +803,7 @@ function num_users()
 	$n=mysqli_num_rows($r);
 	return $n;
 }
-
-function sendMail($f,$t,$subject,$msg)
+function sendMail($t,$subject,$msg,$f)
 {
 	$email = new \SendGrid\Mail\Mail(); 
 $email->setFrom($f);
